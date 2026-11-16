@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "dev-env tab groups",
+  "version": "1.0.0",
+  "description": "Opens a dev-env slot's apps as a Chrome tab group (./env.sh open <slot>).",
+  "permissions": ["tabs", "tabGroups"],
+  "host_permissions": ["http://dev-env.localhost/*"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

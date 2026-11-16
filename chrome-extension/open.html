@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>dev-env</title>
+<style>
+  body { font: 15px/1.5 -apple-system, system-ui, sans-serif; max-width: 640px; margin: 64px auto; padding: 0 16px; color: #1d2939; }
+  code { background: #f2f4f7; padding: 1px 6px; border-radius: 4px; }
+  .muted { color: #667085; }
+</style>
+</head>
+<body>
+<h1 id="title">Opening…</h1>
+<p id="message" class="muted"></p>
+<script>
+  // The dev-env extension replaces this tab with the slot's tab group. If it's still here, say why.
+  const slot = new URLSearchParams(location.search).get('slot') || ''
+  const escape = (text) => text.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`)
+  document.getElementById('title').textContent = slot ? `Opening ${slot}…` : 'No slot given'
+  const message = document.getElementById('message')
+  fetch(`/slots/${encodeURIComponent(slot)}.json`, { cache: 'no-store' })
+    .then((response) => (response.ok ? response.json() : null))
+    .then((list) => {
+      if (!list) {
+        message.innerHTML = `There are no hostnames for <code>${escape(slot)}</code> yet. Run <code>./env.sh hosts ${escape(slot)}</code> once its apps are up.`
+        return
+      }
+      setTimeout(() => {
+        message.innerHTML = 'If this tab stays open, the dev-env extension isn\'t loaded. In <code>chrome://extensions</code>, turn on Developer mode, choose <b>Load unpacked</b> and pick <code>__EXTENSION_DIR__</code>.'
+      }, 1500)
+    })
+</script>
+</body>
+</html>

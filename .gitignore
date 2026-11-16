@@ -1,0 +1,20 @@
+# Generated per-activation — never committed
+.active-env
+.active-env-*
+ACTIVE.md
+
+# Category folders hold symlinks to shared clones; categories are dynamic,
+# so ignore every top-level directory except the tool's own.
+/*/
+!/lib/
+!/scripts/
+!/presets/
+!/chrome-extension/
+
+# Per-slot plans and notes (also covered by /*/ above; listed so it's explicit)
+/plans/
+
+.DS_Store
+
+# Personal Claude Code notes
+CLAUDE.local.md
